@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Scrap Web Page</title>
+</head>
+<body>
+	<form>
+		<label for="text-box">Website</label>
+		<input type="text" id="websiteId" name="website"><br><br>
+		<label for="text-box">pageURL</label>
+		<input type="text" id="pageURLId" name="pageURL"><br><br>
+		<button type="button" onclick="submitForm()">Scrap</button>
+	</form>
+	<script>
+		function submitForm() {
+			const url = "http://localhost:5000/scrap";
+			//const data = new FormData();
+			const websiteValue = document.getElementById("websiteId").value;
+			const pageURLValue = document.getElementById("pageURLId").value;
+			const data = {
+				reqWebsite : websiteValue,
+				reqPageURL : pageURLValue
+			};
+			fetch(url, {
+			method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}
+			})
+			.then(response => response.json())
+			.then(data => console.log(data))
+			.catch(error => console.error(error));
+		}
+	</script>
+</body>
+</html>
